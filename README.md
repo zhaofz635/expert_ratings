@@ -116,7 +116,7 @@ cognitive-load, educational-technology, expert-rating, annotation-tool, machine-
 If you use this repository in academic work, cite the repository and the relevant methodological sources listed below. Replace the author, year, repository URL, and version with the final GitHub release information.
 
 ```text
-Bai, Y. (2026). Expert Rating Tool for Cognitive Load Assessment (Version 1.0.0) [Computer software]. GitHub. https://github.com/your-username/your-repository
+Bai, Y. (2026). Expert Rating Tool for Cognitive Load Assessment (Version 1.0.0) [Computer software]. GitHub. https://github.com/your-username/expert_ratings
 ```
 
 ## References
