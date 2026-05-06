@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expert Rating Tool</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Expert Rating Tool</p>
+          <h1>Rate Samples and Export CSV</h1>
+          <p class="subtitle">
+            Import your JSON data so experts can rate each sample from 1 to 10, edit scores manually, move between samples, auto-save progress, and export the final results.
+          </p>
+        </div>
+        <div class="import-panel">
+          <label class="field-label" for="expertName">Expert Name</label>
+          <input id="expertName" class="text-input" type="text" placeholder="e.g., Expert_A" />
+
+          <label class="field-label" for="dataFile">Import JSON Data</label>
+          <input id="dataFile" class="file-input" type="file" accept=".json,.txt" />
+
+          <div class="import-actions">
+            <button id="loadDemoBtn" class="ghost-btn" type="button">Load Demo Data</button>
+            <button id="clearProgressBtn" class="ghost-btn danger" type="button">Clear Local Progress</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="sidebar card">
+          <div class="status-row">
+            <span id="datasetName">No Data Loaded</span>
+            <span id="progressText">0 / 0</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div id="progressBar" class="progress-fill"></div>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span class="stat-label">Total Samples</span>
+              <strong id="totalCount">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Rated</span>
+              <strong id="ratedCount">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Confirmed</span>
+              <strong id="confirmedCount">0</strong>
+            </div>
+          </div>
+
+          <div class="jump-panel">
+            <label class="field-label" for="jumpToInput">Jump to Sample</label>
+            <div class="jump-row">
+              <input id="jumpToInput" class="text-input" type="number" min="1" placeholder="Enter sample number" />
+              <button id="jumpBtn" class="ghost-btn" type="button">Jump</button>
+            </div>
+          </div>
+
+          <div class="legend">
+            <p><span class="dot neutral"></span> Not Rated</p>
+            <p><span class="dot editing"></span> Rated, Not Confirmed</p>
+            <p><span class="dot confirmed"></span> Confirmed</p>
+          </div>
+
+          <div id="questionList" class="question-list"></div>
+        </aside>
+
+        <section class="main-panel card">
+          <div class="sample-header">
+            <div>
+              <p class="field-label">Current Sample</p>
+              <h2 id="sampleTitle">Please import data first</h2>
+            </div>
+            <div class="sample-meta">
+              <span id="sampleIndexBadge" class="badge">#0</span>
+              <span id="savedStateBadge" class="badge muted">Unsaved</span>
+            </div>
+          </div>
+
+          <div class="sample-content">
+            <div>
+              <p class="field-label">Text Content</p>
+              <article id="sampleText" class="sample-text">After you import a JSON file, the current sample text will appear here.</article>
+            </div>
+            <div id="imageSection" class="image-section hidden">
+              <p class="field-label">Image Path</p>
+              <p id="imagePath" class="image-path"></p>
+            </div>
+          </div>
+
+          <form id="ratingForm" class="rating-grid">
+            <div class="rating-card">
+              <label class="field-label" for="linguistic_complexity">Linguistic Complexity</label>
+              <div class="score-row">
+                <input id="linguistic_complexity" name="linguistic_complexity" class="text-input score-input" type="number" min="1" max="10" step="1" placeholder="1-10" />
+                <div class="quick-score" data-target="linguistic_complexity"></div>
+              </div>
+            </div>
+
+            <div class="rating-card">
+              <label class="field-label" for="formula_density">Formula Density</label>
+              <div class="score-row">
+                <input id="formula_density" name="formula_density" class="text-input score-input" type="number" min="1" max="10" step="1" placeholder="1-10" />
+                <div class="quick-score" data-target="formula_density"></div>
+              </div>
+            </div>
+
+            <div class="rating-card">
+              <label class="field-label" for="knowledge_abstractness">Knowledge Abstractness</label>
+              <div class="score-row">
+                <input id="knowledge_abstractness" name="knowledge_abstractness" class="text-input score-input" type="number" min="1" max="10" step="1" placeholder="1-10" />
+                <div class="quick-score" data-target="knowledge_abstractness"></div>
+              </div>
+            </div>
+
+            <div class="rating-card">
+              <label class="field-label" for="structural_disorganization">Structural Disorganization</label>
+              <div class="score-row">
+                <input id="structural_disorganization" name="structural_disorganization" class="text-input score-input" type="number" min="1" max="10" step="1" placeholder="1-10" />
+                <div class="quick-score" data-target="structural_disorganization"></div>
+              </div>
+            </div>
+
+            <div class="rating-card">
+              <label class="field-label" for="table_complexity">Table Complexity</label>
+              <div class="score-row">
+                <input id="table_complexity" name="table_complexity" class="text-input score-input" type="number" min="1" max="10" step="1" placeholder="1-10" />
+                <div class="quick-score" data-target="table_complexity"></div>
+              </div>
+            </div>
+          </form>
+
+          <div class="panel-actions">
+            <button id="prevBtn" class="ghost-btn" type="button">Prev</button>
+            <button id="saveBtn" class="ghost-btn" type="button">Save Current Scores</button>
+            <button id="confirmBtn" class="primary-btn" type="button">Confirm Current Scores</button>
+            <button id="nextBtn" class="ghost-btn" type="button">Next</button>
+          </div>
+
+          <div class="final-actions">
+            <button id="exportCsvBtn" class="primary-btn" type="button">Export CSV</button>
+            <button id="exportJsonBtn" class="ghost-btn" type="button">Export JSON Backup</button>
+          </div>
+
+          <p id="messageBox" class="message-box">Ready.</p>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

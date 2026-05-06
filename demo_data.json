@@ -1,0 +1,27 @@
+[
+  {
+    "text": "this is the charpter",
+    "image_path": "",
+    "cognitive_load_label": 1
+  },
+  {
+    "text": "we wll Learning some interesting things",
+    "image_path": "",
+    "cognitive_load_label": 1
+  },
+  {
+    "text": "Technical Principles and Applications of Large Language Models",
+    "image_path": "",
+    "cognitive_load_label": 1
+  },
+  {
+    "text": "This section introduces transformer attention and parameter sharing.",
+    "image_path": "",
+    "cognitive_load_label": 2
+  },
+  {
+    "text": "The model computes softmax(QK^T/sqrt(d))V for sequence encoding.",
+    "image_path": "",
+    "cognitive_load_label": 3
+  }
+]
